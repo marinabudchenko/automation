@@ -11,10 +11,8 @@ driver.get("http://uitestingplayground.com/dynamicid")
 sleep(5)
 
 #Кликнуть на синюю кнопку
-button = driver.find_element(By.CSS_SELECTOR, "button[class='btn btn-primary']").click()
-sleep(5)
-field = driver.find_element(By.CSS_SELECTOR, "div[class='container']").click()
-sleep(5)
+wait = WebDriverWait(driver, 10)
+button = wait.find_element(By.CSS_SELECTOR, "button[class='btn btn-primary']").click()
 
 #Запустить скрипт три раза подряд
 
@@ -27,5 +25,4 @@ sleep(5)
 
 #Закрыть браузер
 driver.quit()
-
 
