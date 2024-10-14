@@ -25,7 +25,7 @@ def test_form_calculator():
     driver.find_element(By.XPATH, '//span[contains(text(),"+")]').click()
     driver.find_element(By.XPATH, '//span[contains(text(),"8")]').click()
     driver.find_element(By.XPATH, '//span[contains(text(),"=")]').click()
-    WebDriverWait(driver, "48").until(
+    WebDriverWait(driver, "45").until(
         EC.text_to_be_present_in_element((By.CSS_SELECTOR, "div.screen"), "15")
     )
 
