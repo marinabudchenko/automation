@@ -11,18 +11,24 @@ class CalculatorPage:
         self._driver.implicitly_wait(10)
         self._driver.maximize_window()
 
-    with allure.step("Вызов метода для установки задержки перед выполнением следующего шага"):
-        def delay(self):
-            input_delay = self._driver.find_element(By.CSS_SELECTOR, 'input[id = "delay"]')
-            input_delay.clear()
-            input_delay.send_keys("3")
+    def clear_fill_in_field(self, time):
+        self._driver.find_element(By.CSS_SELECTOR, '#delay').clear()
+        self._driver.find_element(By.CSS_SELECTOR, '#delay').send_keys(time)
 
-    with allure.step("Вызов метода для ввода чисел в калькулятор и запуска операции сложения"):
-        def sum_of_the_numbers(self):
-            self._driver.find_element(By.XPATH, '//span[contains(text(),"7")]').click()
-            self._driver.find_element(By.XPATH, '//span[contains(text(),"+")]').click()
-            self._driver.find_element(By.XPATH, '//span[contains(text(),"8")]').click()
-            self._driver.find_element(By.XPATH, '//span[contains(text(),"=")]').click()
+    def make_calculation(self):
+        self._driver.find_element(
+            By.CSS_SELECTOR, 'span[class="btn btn-outline-primary"]'
+            ).click()
+        self._driver.find_element(
+            By.CSS_SELECTOR, 'span[class="operator btn btn-outline-success"]'
+            ).click()
+        self._driver.find_element(
+            By.XPATH, '(//span[@class="btn btn-outline-primary"])[2]'
+            ).click()
+        self._driver.find_element(
+            By.CSS_SELECTOR, 'span[class="btn btn-outline-warning"]'
+            ).click()
+
 
     with allure.step("Вызов метода для получения результата сложения"):
         def get_result(self):
