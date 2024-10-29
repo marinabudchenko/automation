@@ -3,8 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
 class CalculatorPage:
+
     def __init__(self, driver: bool):
         self._driver = driver
         self._driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
@@ -15,15 +15,14 @@ class CalculatorPage:
         def delay(self):
             input_delay = self._driver.find_element(By.CSS_SELECTOR, 'input[id = "delay"]')
             input_delay.clear()
-            input_delay.send_keys("3")
+            input_delay.send_keys("45")
 
-    with allure.step("Вызов метода для ввода чисел в калькулятор и запуска операции сложения"):
-        def sum_of_the_numbers(self):
-            self._driver.find_element(By.XPATH, '//span[contains(text(),"7")]').click()
-            self._driver.find_element(By.XPATH, '//span[contains(text(),"+")]').click()
-            self._driver.find_element(By.XPATH, '//span[contains(text(),"8")]').click()
-            self._driver.find_element(By.XPATH, '//span[contains(text(),"=")]').click()
+    with allure.step("Вызов метода для ввода чисел в калькулятор и запуска операции"):
+        def sum_of_the_numbers(self, sequence: str):
+            for char in sequence:
+                self._driver.find_element(By.XPATH, f'//span[contains(text(),"{char}")]').click()
 
+                
     with allure.step("Вызов метода для получения результата сложения"):
         def get_result(self):
             WebDriverWait(self._driver, "48").until(
