@@ -3,8 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 
 from webdriver_manager.chrome import ChromeDriverManager
-from pages.CalculatorPage import CalculatorPage
-
+from Calculator import CalculatorPage
 
 @allure.id("Calculator")
 @allure.epic("калькулятор")
@@ -22,6 +21,6 @@ def test_form_calculator():
         calculator_page = CalculatorPage(driver)
 
     calculator_page.delay()
-    calculator_page.sum_of_the_numbers()
+    calculator_page.sum_of_the_numbers("7+8=")
     calculator_page.get_result()
     calculator_page.close_driver()

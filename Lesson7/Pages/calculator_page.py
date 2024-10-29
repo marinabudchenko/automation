@@ -3,33 +3,26 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
 class CalculatorPage:
+
     def __init__(self, driver: bool):
         self._driver = driver
         self._driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
         self._driver.implicitly_wait(10)
         self._driver.maximize_window()
 
-    def clear_fill_in_field(self, time):
-        self._driver.find_element(By.CSS_SELECTOR, '#delay').clear()
-        self._driver.find_element(By.CSS_SELECTOR, '#delay').send_keys(time)
+    with allure.step("Вызов метода для установки задержки перед выполнением следующего шага"):
+        def delay(self):
+            input_delay = self._driver.find_element(By.CSS_SELECTOR, 'input[id = "delay"]')
+            input_delay.clear()
+            input_delay.send_keys("45")
 
-    def make_calculation(self):
-        self._driver.find_element(
-            By.CSS_SELECTOR, 'span[class="btn btn-outline-primary"]'
-            ).click()
-        self._driver.find_element(
-            By.CSS_SELECTOR, 'span[class="operator btn btn-outline-success"]'
-            ).click()
-        self._driver.find_element(
-            By.XPATH, '(//span[@class="btn btn-outline-primary"])[2]'
-            ).click()
-        self._driver.find_element(
-            By.CSS_SELECTOR, 'span[class="btn btn-outline-warning"]'
-            ).click()
+    with allure.step("Вызов метода для ввода чисел в калькулятор и запуска операции"):
+        def sum_of_the_numbers(self, sequence: str):
+            for char in sequence:
+                self._driver.find_element(By.XPATH, f'//span[contains(text(),"{char}")]').click()
 
-
+                
     with allure.step("Вызов метода для получения результата сложения"):
         def get_result(self):
             WebDriverWait(self._driver, "48").until(
@@ -39,3 +32,4 @@ class CalculatorPage:
     with allure.step("Закрытия драйвера веб-браузера"):
         def close_driver(self):
             self._driver.quit()
+            
